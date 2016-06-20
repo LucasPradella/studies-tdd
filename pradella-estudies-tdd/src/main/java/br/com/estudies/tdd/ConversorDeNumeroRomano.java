@@ -7,12 +7,17 @@ public class ConversorDeNumeroRomano {
 
 	public int converter(String numeroRomano) {
 		int acumulador = 0;
-		for (int i = 0; i < numeroRomano.length(); i++) {
-			acumulador += tabela.get(numeroRomano.charAt(i) + "");
+		int ultimoVizinhoDaDireita = 0;
+		for (int i = numeroRomano.length() - 1; i >= 0; i--) {
+
+			int atual = tabela.get(numeroRomano.charAt(i) + "");
+			int multiplicador = 1;
+			if (atual < ultimoVizinhoDaDireita)	multiplicador = -1;
+			acumulador += tabela.get(numeroRomano.charAt(i) + "") * multiplicador;
+			ultimoVizinhoDaDireita = atual;
 		}
 		return acumulador;
 	}
-	
 	
 	@SuppressWarnings("serial")
 	private static Map<String, Integer> tabela =
