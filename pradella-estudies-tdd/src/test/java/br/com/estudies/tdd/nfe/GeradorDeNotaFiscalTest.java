@@ -39,9 +39,21 @@ public class GeradorDeNotaFiscalTest {
 		Pedido pedido = new Pedido("Arya Stark", 1000, 1);
 		NotaFiscal nf = gerador.gera(pedido);
 
-		
 		// Usando o Verify para verificar a chamada do metodo
 		verify(dao).persiste(nf);
+	
+	}
+
+	
+	
+	@Test
+	public void deveEnviarNFGerada() {
+			
+		Pedido pedido = new Pedido("Tony Stark", 1000, 1);
+		NotaFiscal nf = gerador.gera(pedido);
+
+		
+		verify(sap).envia(nf);
 	
 	}
 
