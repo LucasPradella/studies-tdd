@@ -1,13 +1,11 @@
-package br.com.estudies.tdd;
+package br.com.estudies.tdd.calculadora;
 
 import br.com.estudies.domain.Funcionario;
 
 public class CalculadoraDeSalario {
 
 	public double calculaSalario(Funcionario funcionario) {
-		return funcionario.getSalario() * 0.9;
+		return funcionario.getCargo().getRegra().calcula(funcionario);
 	}
 
-	
-	
 }
