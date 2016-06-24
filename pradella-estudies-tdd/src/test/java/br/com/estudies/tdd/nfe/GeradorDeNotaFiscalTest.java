@@ -3,6 +3,7 @@ package br.com.estudies.tdd.nfe;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
@@ -50,7 +51,7 @@ public class GeradorDeNotaFiscalTest {
 		Pedido pedido = new Pedido("Jow Snow", 1000, 1);
 		NotaFiscal nf = gerador.gera(pedido);
 
-		assertEquals(1000 * 0.94, nf.getValor(), 0.00001);
+		assertEquals(1000 * 0.2, nf.getValor(), 0.00001);
 	}
 	  
 
@@ -70,6 +71,43 @@ public class GeradorDeNotaFiscalTest {
 			verify(acao).executaAcao(nf);
 		
 		}
+		
+
+		@Test
+		public void deveLerATabelaParaCalcularOImposto() {
+		
+			//Mock Tabela
+			Tabela tabela = mock(Tabela.class);
+			
+			//Mock Relogio para usar esse contrutor
+			Relogio relogio = mock(Relogio.class);
+			
+			//Criando tabela e metodo, pos teste
+			when(tabela.paraValor(1000)).thenReturn(0.2);
+			
+			
+			//mesmos condigos repetidos, poderiamos isolar,  ou usar Anotacoes
+			AcaoPosGerarNota acao = mock(AcaoPosGerarNota.class);
+			List<AcaoPosGerarNota> acoes = Arrays.asList(acao);
+			
+	
+			
+			GeradorDeNotaFiscal gerador = new GeradorDeNotaFiscal(acoes, relogio, tabela);
+			Pedido pedido = new Pedido("Mae dos Dragoes", 1000, 1);
+			
+			
+			NotaFiscal nf = gerador.gera(pedido);
+			
+			verify(tabela).paraValor(1000.0);
+			assertEquals(1000.0 * 0.2, nf.getValor(), 0.00001);
+			
+			
+			
+			
+			
+			
+		}
+		
 
 		
 		
