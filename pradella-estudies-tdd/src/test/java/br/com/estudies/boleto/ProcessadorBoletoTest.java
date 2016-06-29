@@ -1,6 +1,7 @@
 package br.com.estudies.boleto;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.util.Arrays;
@@ -29,11 +30,9 @@ public class ProcessadorBoletoTest {
 		Fatura fatura = new Fatura("Cliente", 150.0);
 		
 		Boleto b1 = new Boleto(150.0);
-				
 		List<Boleto> boletos = Arrays.asList(b1);
 		
 		processador.processa(boletos, fatura);
-		
 		
 		assertEquals(1, fatura.getPagamentos().size());
 		assertEquals(150.0, fatura.getPagamentos().get(0).getValor(), 0.00001);
@@ -56,4 +55,16 @@ public class ProcessadorBoletoTest {
 		assertEquals(150.0, fatura.getPagamentos().get(1).getValor(), 0.00001);		
 	}
 
+
+	@Test
+	public void deveMarcarComoPagoCasoBoletoUnicoValorCorretoAFatura(){
+		Fatura fatura = new Fatura("Cliente", 150.0);
+		
+		Boleto b1 = new Boleto(150.0);
+		List<Boleto> boletos = Arrays.asList(b1);
+
+		processador.processa(boletos, fatura);
+		
+		assertTrue(fatura.getPago());
+	}	
 }
