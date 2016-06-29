@@ -10,7 +10,23 @@ public class Fatura {
 	private List<Pagamento> pagamentos;
 	private Boolean pago;
 	
+
 	
+
+	public void adicionaPagamento(Pagamento pagamento) {
+		this.pagamentos.add(pagamento);
+
+		double valorTotal = 0;
+		for (Pagamento p : pagamentos) {
+			valorTotal += p.getValor();
+		}
+
+		if (valorTotal >= this.getValor()) {
+			this.pago = true;
+		}
+
+	}
+
 		
 	
 	
@@ -48,6 +64,10 @@ public class Fatura {
 	public void setPago(Boolean pago) {
 		this.pago = pago;
 	}
+
+
+
+
 	
 
 	
