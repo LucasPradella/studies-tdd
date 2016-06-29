@@ -100,11 +100,7 @@ public class GeradorDeNotaFiscalTest {
 			
 			verify(tabela).paraValor(1000.0);
 			assertEquals(1000.0 * 0.2, nf.getValor(), 0.00001);
-			
-			
-			
-			
-			
+
 			
 		}
 		
